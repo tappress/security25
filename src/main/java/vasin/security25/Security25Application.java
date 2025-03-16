@@ -1,4 +1,4 @@
-package edu.pzks.security25;
+package vasin.security25;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
