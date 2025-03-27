@@ -1,37 +1,45 @@
-### GET ALL ITEMS
-GET http://localhost:8080/api/v1/items
+### GET ALL ROOMS
+GET http://localhost:8080/api/v1/rooms
 
 ###
 
-### GET ONE ITEM
-GET http://localhost:8080/api/v1/items/2
+### GET ONE ROOM
+GET http://localhost:8080/api/v1/rooms/2
 
 ###
 
-### DELETE ONE ITEM
-DELETE http://localhost:8080/api/v1/items/3
+### DELETE ONE ROOM
+DELETE http://localhost:8080/api/v1/rooms/3
 
 ###
 
-### CREATE ONE ITEM
-POST http://localhost:8080/api/v1/items
+### CREATE ONE ROOM
+POST http://localhost:8080/api/v1/rooms
 Content-Type: application/json
 
 {
-  "name": "name4",
-  "description": "d4"
+  "roomNumber": "401",
+  "roomType": "Standard",
+  "pricePerNight": 89.99,
+  "capacity": 2,
+  "available": true,
+  "amenities": "WiFi, TV, AC",
+  "floorLevel": "4"
 }
-### UPDATE ONE ITEM
-PUT http://localhost:8080/api/v1/items
+### UPDATE ONE ROOM
+PUT http://localhost:8080/api/v1/rooms
 Content-Type: application/json
 
 {
   "id": "2",
-  "name": "name22",
-  "description": "d22"
+  "roomNumber": "202",
+  "roomType": "Deluxe Plus",
+  "pricePerNight": 169.99,
+  "capacity": 3,
+  "available": true,
+  "amenities": "WiFi, TV, AC, Mini Bar, Ocean View",
+  "floorLevel": "2"
 }
 
 
 ###
-
-

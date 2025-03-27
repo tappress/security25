@@ -1,13 +1,4 @@
-package edu.pzks.security25.item;
-
-
-/*
-  @author   george
-  @project   security25
-  @class  ItemRestController
-  @version  1.0.0 
-  @since 18.02.25 - 19.49
-*/
+package vasin.security25.room;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -15,33 +6,35 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/items")
+@RequestMapping("/api/v1/rooms")
 @AllArgsConstructor
-public class ItemRestController {
+public class RoomRestController {
 
-    private final ItemService service;
+    private final RoomService service;
 
     @GetMapping
-    public List<Item> getItems() {
+    public List<Room> getRooms() {
         return service.getAll();
     }
+
     @GetMapping("/{id}")
-    public Item getOneItem(@PathVariable String id) {
+    public Room getOneRoom(@PathVariable String id) {
         return service.getById(id);
     }
-      @DeleteMapping("/{id}")
+
+    @DeleteMapping("/{id}")
     public void delete(@PathVariable String id) {
-         service.deleteById(id);
+        service.deleteById(id);
     }
 
     @PostMapping
-    public Item create(@RequestBody Item item) {
-        return service.create(item);
+    public Room create(@RequestBody Room room) {
+        return service.create(room);
     }
 
     @PutMapping
-    public Item update(@RequestBody Item item) {
-        return service.update(item);
+    public Room update(@RequestBody Room room) {
+        return service.update(room);
     }
 
     @GetMapping("/hello/user")
@@ -58,14 +51,4 @@ public class ItemRestController {
     public String helloUnknown() {
         return "Hello Unknown!";
     }
-
-
-
-
-
-
-
-
-
-
 }
