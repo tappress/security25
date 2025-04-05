@@ -1,17 +1,11 @@
 ### GET ALL ROOMS
 GET http://localhost:8080/api/v1/rooms
 
-###
-
 ### GET ONE ROOM
 GET http://localhost:8080/api/v1/rooms/2
 
-###
-
 ### DELETE ONE ROOM
 DELETE http://localhost:8080/api/v1/rooms/3
-
-###
 
 ### CREATE ONE ROOM
 POST http://localhost:8080/api/v1/rooms
@@ -41,5 +35,17 @@ Content-Type: application/json
   "floorLevel": "2"
 }
 
+### GET HELLO USER
+GET http://localhost:8080/api/v1/rooms/hello/user
+#Base64 of user's password
+Authorization: Basic dXNlcjpwYXNzd29yZA==
+#Base64 of admin's password
+#Authorization: Basic YWRtaW46YWRtaW4=
 
-###
+### GET HELLO ADMIN
+GET http://localhost:8080/api/v1/rooms/hello/admin
+#Base64 of admin's password
+Authorization: Basic YWRtaW46YWRtaW4=
+
+### GET HELLO UNKNOWN
+GET http://localhost:8080/api/v1/rooms/hello/unknown
