@@ -1,11 +1,81 @@
-### GET ALL ITEMS
-GET http://localhost:8080/api/v1/items
+### GET ALL ROOMS
+GET http://localhost:8080/api/v1/rooms
+Accept: application/json
 Authorization: Basic admin admin
-Accept: application/json
-###
 
-### GET ALL ITEMS bad creds
-GET http://localhost:8080/api/v1/items
-Authorization: Basic admin admin1
+> {%
+    client.test("Get all rooms successful", function() {
+        client.assert(response.status === 200, "Response status should be 200");
+        client.assert(Array.isArray(response.body), "Response body should be an array");
+    });
+%}
+
+### GET ONE ROOM
+GET http://localhost:8080/api/v1/rooms/2
 Accept: application/json
-###
+Authorization: Basic admin admin
+
+> {%
+    client.test("Get room successful", function() {
+        client.assert(response.status === 200, "Response status should be 200");
+        client.assert(response.body.roomNumber !== null, "Room number should exist");
+    });
+%}
+
+### DELETE ONE ROOM
+DELETE http://localhost:8080/api/v1/rooms/3
+Authorization: Basic admin admin
+
+> {%
+    client.test("Delete room successful", function() {
+        client.assert(response.status === 200 || response.status === 204, "Response status should be 200 or 204");
+    });
+%}
+
+### CREATE ONE ROOM
+POST http://localhost:8080/api/v1/rooms
+Content-Type: application/json
+Authorization: Basic admin admin
+
+{
+  "roomNumber": "401",
+  "roomType": "Standard",
+  "pricePerNight": 89.99,
+  "capacity": 2,
+  "available": true,
+  "amenities": "WiFi, TV, AC",
+  "floorLevel": "4"
+}
+
+> {%
+    client.test("Create room successful", function() {
+        client.assert(response.status === 201, "Response status should be 201");
+        client.assert(response.body.roomNumber === "401", "Room number should be 401");
+        client.assert(response.body.id !== null, "Created room should have an ID");
+    });
+%}
+
+### UPDATE ONE ROOM
+PUT http://localhost:8080/api/v1/rooms
+Content-Type: application/json
+Authorization: Basic admin admin
+
+{
+  "id": "2",
+  "roomNumber": "202",
+  "roomType": "Deluxe Plus",
+  "pricePerNight": 169.99,
+  "capacity": 3,
+  "available": true,
+  "amenities": "WiFi, TV, AC, Mini Bar, Ocean View",
+  "floorLevel": "2"
+}
+
+> {%
+    client.test("Update room successful", function() {
+        client.assert(response.status === 200, "Response status should be 200");
+        client.assert(response.body.id == 2, "Room ID should be 2");
+        client.assert(response.body.roomType === "Deluxe Plus", "Room type should be updated to Deluxe Plus");
+        client.assert(response.body.pricePerNight === 169.99, "Price should be updated to 169.99");
+    });
+%}

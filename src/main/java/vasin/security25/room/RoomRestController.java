@@ -1,6 +1,7 @@
 package vasin.security25.room;
 
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,6 +29,7 @@ public class RoomRestController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Room create(@RequestBody Room room) {
         return service.create(room);
     }
