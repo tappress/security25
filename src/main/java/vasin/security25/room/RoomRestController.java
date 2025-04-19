@@ -47,6 +47,7 @@ public class RoomRestController {
     }
 
     @GetMapping("hello/admin")
+    @PreAuthorize("hasRole('ADMIN')")
     public String helloAdmin() {
         return "Hello Admin!";
     }
