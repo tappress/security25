@@ -1,0 +1,129 @@
+### 1. GET ALL ROOMS as admin (should succeed)
+GET http://localhost:8080/api/v1/rooms
+Authorization: Basic YWRtaW46YWRtaW4=
+Accept: application/json
+
+> {%
+    client.test("Get all rooms as admin successful", function() {
+        client.assert(response.status === 200, "Response status should be 200");
+        client.assert(Array.isArray(response.body), "Response body should be an array");
+    });
+%}
+
+### 2. GET ALL ROOMS as user (should succeed)
+GET http://localhost:8080/api/v1/rooms
+Authorization: Basic dXNlcjp1c2Vy
+Accept: application/json
+
+> {%
+    client.test("Get all rooms as user successful", function() {
+        client.assert(response.status === 200, "Response status should be 200");
+        client.assert(Array.isArray(response.body), "Response body should be an array");
+    });
+%}
+
+### 3. GET ALL ROOMS as superadmin (should succeed)
+GET http://localhost:8080/api/v1/rooms
+Authorization: Basic c3VwZXJhZG1pbjpzdXBlcmFkbWlu
+Accept: application/json
+
+> {%
+    client.test("Get all rooms as superadmin successful", function() {
+        client.assert(response.status === 200, "Response status should be 200");
+        client.assert(Array.isArray(response.body), "Response body should be an array");
+    });
+%}
+
+### 4. GET specific room as user (should succeed)
+GET http://localhost:8080/api/v1/rooms/1
+Authorization: Basic dXNlcjp1c2Vy
+Accept: application/json
+
+> {%
+    client.test("Get specific room as user successful", function() {
+        client.assert(response.status === 200, "Response status should be 200");
+        client.assert(response.body.id === "1", "Room ID should be 1");
+    });
+%}
+
+### 5. Access /hello/superadmin as superadmin (should succeed)
+GET http://localhost:8080/api/v1/rooms/hello/superadmin
+Authorization: Basic c3VwZXJhZG1pbjpzdXBlcmFkbWlu
+Accept: application/json
+
+> {%
+    client.test("Access hello/superadmin as superadmin successful", function() {
+        client.assert(response.status === 200, "Response status should be 200");
+        client.assert(response.body === "Hello SuperAdmin", "Response should be 'Hello SuperAdmin'");
+    });
+%}
+
+### 6. Access /hello/superadmin as admin (should fail - no permission)
+GET http://localhost:8080/api/v1/rooms/hello/superadmin
+Authorization: Basic YWRtaW46YWRtaW4=
+Accept: application/json
+
+> {%
+    client.test("Access hello/superadmin as admin should fail", function() {
+        client.assert(response.status === 403, "Response status should be 403 Forbidden");
+    });
+%}
+
+### 7. Access /hello/user as user (should succeed)
+GET http://localhost:8080/api/v1/rooms/hello/user
+Authorization: Basic dXNlcjp1c2Vy
+Accept: application/json
+
+> {%
+    client.test("Access hello/user as user successful", function() {
+        client.assert(response.status === 200, "Response status should be 200");
+        client.assert(response.body === "Hello User!", "Response should be 'Hello User!'");
+    });
+%}
+
+### 8. Access /index.html without authentication (should succeed due to permitAll)
+GET http://localhost:8080/index.html
+Accept: text/html
+
+> {%
+    client.test("Access index.html without auth successful", function() {
+        client.assert(response.status === 200, "Response status should be 200");
+        client.assert(response.contentType.mimeType === "text/html", "Content type should be text/html");
+    });
+%}
+
+### 9. Access /hello/admin as admin (should succeed)
+GET http://localhost:8080/api/v1/rooms/hello/admin
+Authorization: Basic YWRtaW46YWRtaW4=
+Accept: application/json
+
+> {%
+    client.test("Access hello/admin as admin successful", function() {
+        client.assert(response.status === 200, "Response status should be 200");
+        client.assert(response.body === "Hello Admin!", "Response should be 'Hello Admin!'");
+    });
+%}
+
+### 10. Access /hello/unknown as any authenticated user (should succeed)
+GET http://localhost:8080/api/v1/rooms/hello/unknown
+Authorization: Basic dXNlcjp1c2Vy
+Accept: application/json
+
+> {%
+    client.test("Access hello/unknown as user successful", function() {
+        client.assert(response.status === 200, "Response status should be 200");
+        client.assert(response.body === "Hello Unknown!", "Response should be 'Hello Unknown!'");
+    });
+%}
+
+### 11. Access /hello/stranger as authenticated user (should succeed)
+GET http://localhost:8080/api/v1/rooms/hello/stranger
+Authorization: Basic dXNlcjp1c2Vy
+Accept: application/json
+
+> {%
+    client.test("Access hello/stranger as user successful", function() {
+        client.assert(response.status === 200, "Response status should be 200");
+        client.assert(response.body === "Hello Stranger", "Response should be 'Hello Stranger'");
+    });
+%}
