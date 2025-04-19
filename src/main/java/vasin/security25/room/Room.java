@@ -10,7 +10,7 @@ import org.springframework.data.annotation.Id;
 @AllArgsConstructor
 @Builder
 @ToString
-public class Room {
+public class Room extends AuditMetaData {
 
     @Id
     private String id;
