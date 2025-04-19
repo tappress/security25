@@ -69,14 +69,15 @@ Accept: application/json
     });
 %}
 
-### 7. Access /hello/user as admin (should succeed, admin has ROLE_ADMIN)
+### 7. Access /hello/user as admin (should succeed)
 GET http://localhost:8080/api/v1/rooms/hello/user
 Authorization: Basic YWRtaW46YWRtaW4=
 Accept: application/json
 
 > {%
-    client.test("Access hello/user as admin should fail", function() {
-        client.assert(response.status === 403, "Response status should be 403 Forbidden");
+    client.test("Access hello/user as admin successful", function() {
+        client.assert(response.status === 200, "Response status should be 200");
+        client.assert(response.body === "Hello User!", "Response should be 'Hello User!'");
     });
 %}
 
@@ -87,6 +88,7 @@ Accept: text/html
 > {%
     client.test("Access index.html without auth successful", function() {
         client.assert(response.status === 200, "Response status should be 200");
+        client.assert(response.contentType.mimeType === "text/html", "Content type should be text/html");
     });
 %}
 

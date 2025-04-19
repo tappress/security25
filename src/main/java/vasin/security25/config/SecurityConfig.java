@@ -28,8 +28,8 @@ public class SecurityConfig {
         http.csrf(csrf ->csrf.disable())
                 .authorizeHttpRequests( req ->
                         req.requestMatchers("/index.html").permitAll()
-                                .requestMatchers("/api/v1/books/hello/admin").hasRole("ADMIN")
-                                .requestMatchers("/api/v1/books/hello/superadmin").hasRole("SUPERADMIN")
+                                .requestMatchers("/api/v1/rooms/hello/admin").hasRole("ADMIN")
+                                .requestMatchers("/api/v1/rooms/hello/superadmin").hasRole("SUPERADMIN")
                                 .anyRequest().authenticated())
                 .httpBasic(Customizer.withDefaults());
 
