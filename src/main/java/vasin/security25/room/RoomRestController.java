@@ -2,7 +2,6 @@ package vasin.security25.room;
 
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -41,31 +40,22 @@ public class RoomRestController {
     }
 
     @GetMapping("/hello/user")
-    @PreAuthorize("hasRole('USER')")
     public String helloUser() {
         return "Hello User!";
     }
 
     @GetMapping("hello/admin")
-    @PreAuthorize("hasRole('ADMIN')")
     public String helloAdmin() {
         return "Hello Admin!";
     }
 
     @GetMapping("hello/superadmin")
-    @PreAuthorize("hasRole('SUPERADMIN')")
     public String helloSuperAdmin() {
         return "Hello SuperAdmin";
     }
 
     @GetMapping("hello/unknown")
-    @PreAuthorize("hasAnyRole('ADMIN', 'USER', 'SUPERADMIN')")
     public String helloUnknown() {
         return "Hello Unknown!";
-    }
-
-    @GetMapping("hello/stranger")
-    public String helloStranger() {
-        return "Hello Stranger";
     }
 }
